@@ -1,4 +1,8 @@
 import axios from "axios";
+import {
+  PokeapiResponse,
+  Move,
+} from "../interfaces/Pokeapi-response.interface";
 //Forma tradicional
 // export class Pokemon {
 //   public id: number;
@@ -31,20 +35,22 @@ export class Pokemon {
     console.log(`${this.name.toLocaleLowerCase()}!!!`);
     this.speake();
   }
+
   private speake() {
     console.log(`${this.name} , ${this.name}`);
   }
 
-  async getMoves() {
+  // Podemos declarar una interfacer con todos los tipo de datos del responde de una api
+  // Esto nos va a facilitar poder agregarle el tipo de retorno de una clase asi queda mas tipada
+  async getMoves(): Promise<Move[]> {
     //const moves = 10
-    const {
-      data: { moves },
-    } = await axios.get(`https://pokeapi.co/api/v2/pokemon/4`);
+    const { data } = await axios.get<PokeapiResponse>(
+      `https://pokeapi.co/api/v2/pokemon/4`
+    );
 
-    console.log(moves);
+    console.log(data.moves);
 
-    return moves;
+    return data.moves;
   }
 }
-
 export const charmander = new Pokemon(1, "char");
