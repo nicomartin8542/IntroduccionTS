@@ -1,3 +1,4 @@
+//Un decorador es una simple funcion que devuelte otra funcion como return
 const Deprecated = (deprecationReason: string) => {
   return (
     target: any,
